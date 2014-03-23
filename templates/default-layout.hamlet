@@ -3,7 +3,8 @@
     <div class="header banner-grad">
         <div class="content">
             <div class="inline">
-                <img src=@{StaticR img_lee_jpeg} class="shadow">
+                <a href=@{HomeR}>
+                    <img src=@{StaticR img_lee_jpeg} class="shadow">
             <div class="inline my-title">
                 <h1> Lee D. Gauthier
                 <p> Maybe I should have a clever name for this blog.
@@ -12,11 +13,11 @@
         <div class="menu">
             <ul>
                 <li class="left">
-                    <a href="#">About
+                    <a href=@{HomeR}>Home
                 <li class="mid">
-                    <a href="#">Blog
+                    <a href=@{BlogR}>Blog
                 <li class="right">
-                    <a href="#">Projects
+                    <a href=@{ProjR}>Projects
 
     $maybe msg <- mmsg
         <div #message>#{msg}

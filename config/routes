@@ -5,4 +5,7 @@
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
-/ HomeR GET
+/                   HomeR       GET
+/blog               BlogR       GET POST
+/blog/#ArticleId    ArticleR    GET
+/projects           ProjR       GET
