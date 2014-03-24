@@ -1,0 +1,6 @@
+<p>
+    <a href=@{AuthR LoginR}>Go to the login page
+<form method=post enctype=#{formEnctype}>
+    ^{formWidget}
+    <div>
+        <input type=submit value="Post New Article">
