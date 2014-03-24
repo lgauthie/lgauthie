@@ -16,8 +16,14 @@
                     <a href=@{HomeR}>Home
                 <li class="mid">
                     <a href=@{BlogR}>Blog
-                <li class="right">
+                <li class="mid">
                     <a href=@{ProjR}>Projects
+                <li class="right">
+                    $maybe _ <- maybeUser
+                        <a href=@{AuthR LogoutR}>Logout
+                    $nothing
+                        <a href=@{AuthR LoginR}>Login
+
 
     $maybe msg <- mmsg
         <div #message>#{msg}

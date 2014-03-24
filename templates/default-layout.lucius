@@ -18,11 +18,11 @@ html, body {
     border-width: 0.1em;
     h1 {
         margin: 0;
-        text-shadow: #E4E4E4 0.07em 0.07em;
+        text-shadow: #EAEAEA 0.05em 0.05em;
         text-align: left;
     }
     p {
-        text-shadow: #E4E4E4 0.07em 0.07em;
+        text-shadow: #E7E7E7 0.1em 0.1em;
         text-align: left;
     }
     img {
@@ -104,7 +104,7 @@ html, body {
 .right {
     border-left-style: solid;
     border-left-width: 0.1em;
-    border-left-color: #BBB;
+    border-left-color: #D7D7D7;
 }
 .mid {
     border-right-style: solid;
@@ -112,7 +112,7 @@ html, body {
     border-right-color: #999;
     border-left-style: solid;
     border-left-width: 0.1em;
-    border-left-color: #BBB;
+    border-left-color: #D7D7D7;
 }
 
 /* Keep footer at bottom of page */
@@ -132,7 +132,7 @@ html, body {
     border-top-color: #CCC;
     border-width: 0.1em;
     p {
-        color: #666;
+        color: #8F8F8F;
         width: 530px;
         margin: 1.2em auto;
     }

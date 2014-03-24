@@ -79,10 +79,12 @@ fayFile' staticR moduleName
 
 data Extra = Extra
     { extraCopyright :: Text
+    , extraAdminEmail :: Text
     , extraAnalytics :: Maybe Text -- ^ Google Analytics
     } deriving Show
 
 parseExtra :: DefaultEnv -> Object -> Parser Extra
 parseExtra _ o = Extra
     <$> o .:  "copyright"
+    <*> o .:  "adminEmail"
     <*> o .:? "analytics"

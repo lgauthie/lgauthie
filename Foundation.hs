@@ -4,7 +4,7 @@ import Prelude
 import Yesod
 import Yesod.Static
 import Yesod.Auth
-import Yesod.Auth.BrowserId
+-- import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
@@ -60,6 +60,7 @@ instance Yesod App where
         "config/client_session_key.aes"
 
     defaultLayout widget = do
+        maybeUser <- maybeAuth
         master <- getYesod
         mmsg <- getMessage
 
@@ -143,7 +144,8 @@ instance YesodAuth App where
                     }
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def, authGoogleEmail]
+    -- authPlugins _ = [authBrowserId def, authGoogleEmail]
+    authPlugins _ = [authGoogleEmail]
 
     authHttpManager = httpManager
 

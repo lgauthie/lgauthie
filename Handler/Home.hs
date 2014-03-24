@@ -2,15 +2,17 @@
 module Handler.Home where
 
 import Import
+import Yesod.Auth
+import Yesod.Default.Config
 import Language.Haskell.TH ( Exp(..) )
+-- import Yesod.Form.Nic (YesodNic, nicHtmlField)
 
--- This is a handler function for the GET request method on the HomeR
--- resource pattern. All of your resource patterns are defined in
--- config/routes
---
--- The majority of the code you will write in Yesod lives in these handler
--- functions. You can spread them across multiple files if you are so
--- inclined, or create a single monolithic file.
+isAdmin :: App -> Text -> Bool
+isAdmin master email =
+    if email == (extraAdminEmail $ appExtra $ settings master)
+        then True
+        else False
+
 getHomeR :: Handler Html
 getHomeR = do
     -- (formWidget, formEnctype) <- generateFormPost sampleForm
@@ -18,21 +20,36 @@ getHomeR = do
     --     handlerName = "getHomeR" :: Text
     defaultLayout $ do
         aDomId <- newIdent
-        setTitle "Welcome!"
+        setTitle "LeeGauthier.ca: Welcome!"
         $(widgetFile "homepage")
         $(fayFile' (ConE 'StaticR) "Home")
 
--- The view showing the list of articles
 getBlogR :: Handler Html
 getBlogR = do
-    -- Get the list of articles inside the database.
+    master <- getYesod
+    maybeUser <- maybeAuth
     articles <- runDB $ selectList [] [Desc ArticleTitle]
-    -- We'll need the two "objects": articleWidget and enctype
-    -- to construct the form (see templates/articles.hamlet).
+    (formWidget, formEnctype) <- generateFormPost entryForm
     (articleWidget, enctype) <- generateFormPost entryForm
     defaultLayout $ do
-        setTitle "Welcome To Yesod!"
+        setTitle "LeeGauthier.ca: Blog"
         $(widgetFile "new_entry")
+
+postBlogR :: Handler Html
+postBlogR = do
+    master <- getYesod
+    maybeUser <- maybeAuth
+    articles <- runDB $ selectList [] [Desc ArticleTitle]
+    ((result, formWidget), formEnctype) <- runFormPost entryForm
+    case result of
+         FormSuccess article -> do
+            articleId <- runDB $ insert article
+            setMessage $ toHtml $ (articleTitle article) <> " created"
+            redirect $ ArticleR articleId
+         _ -> defaultLayout $ do
+                setTitle "Please correct your entry form"
+                aDomId <- newIdent
+                $(widgetFile "new_entry")
 
 getArticleR :: ArticleId -> Handler Html
 getArticleR articleId = do
@@ -41,10 +58,10 @@ getArticleR articleId = do
         setTitle $ toHtml $ articleTitle article
         $(widgetFile "article")
 
-entryForm :: Form (FileInfo, Text)
-entryForm = renderDivs $ (,)
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField "What's on the file?" Nothing
+entryForm :: Form Article
+entryForm = renderDivs $ Article
+     <$> areq textField "Title" Nothing
+     <*> areq htmlField "Content" Nothing
 -- entryForm :: Form Article
 -- entryForm = renderDivs $ Article
 --     <$> areq   textField "Title" Nothing
@@ -55,14 +72,24 @@ getProjR = do
     -- (formWidget, formEnctype) <- generateFormPost sampleForm
     -- let submission = Nothing :: Maybe (FileInfo, Text)
     --     handlerName = "getHomeR" :: Text
+    (formWidget, formEnctype) <- generateFormPost entryForm
     defaultLayout $ do
         aDomId <- newIdent
-        setTitle "Welcome To Yesod!"
-        $(widgetFile "homepage")
+        setTitle "LeeGauthier.ca: Projects"
+        $(widgetFile "projects")
         $(fayFile' (ConE 'StaticR) "Home")
 
-postBlogR :: Handler Html
-postBlogR = undefined
+getNewEntryR :: Handler Html
+getNewEntryR = do
+    (formWidget, formEnctype) <- generateFormPost entryForm
+    -- let submission = Nothing :: Maybe (FileInfo, Text)
+    --     handlerName = "getHomeR" :: Text
+    defaultLayout $ do
+        aDomId <- newIdent
+        setTitle "What are you doing here!?"
+        $(widgetFile "new_article")
+        $(fayFile' (ConE 'StaticR) "Home")
+
 
 -- postHomeR :: Handler Html
 -- postHomeR = do
@@ -77,7 +104,3 @@ postBlogR = undefined
 --         setTitle "Welcome To Yesod!"
 --         $(widgetFile "homepage")
 --
--- sampleForm :: Form (FileInfo, Text)
--- sampleForm = renderDivs $ (,)
---     <$> fileAFormReq "Choose a file"
---     <*> areq textField "What's on the file?" Nothing

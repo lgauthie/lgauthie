@@ -1,3 +1,10 @@
+$maybe user <- maybeUser
+    $if isAdmin master (userIdent $ entityVal user)
+        <h1> New Entry
+        <form method=post enctype=#{formEnctype}>
+            ^{formWidget}
+            <div>
+                <input type=submit value="Post New Article">
 <h1> Articles
 $if null articles
     <p> There are no articles in the blog
