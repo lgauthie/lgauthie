@@ -23,6 +23,8 @@ library
                      SharedTypes
                      Handler.Fay
                      Handler.Home
+                     Handler.Blog
+                     Utils.Utils
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
