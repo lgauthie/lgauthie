@@ -1,24 +1,24 @@
 <!-- the combination of wrapper and push force the footer to the bottom of the page -->
-<div class="wrapper">
-    <div class="header banner-grad">
-        <div class="content">
-            <div class="inline">
+<div .wrapper>
+    <div .header .banner-grad>
+        <div .content>
+            <div .inline>
                 <a href=@{HomeR}>
-                    <img src=@{StaticR img_lee_jpeg} class="shadow">
-            <div class="inline my-title">
+                    <img src=@{StaticR img_lee_jpeg} .shadow>
+            <div .inline .my-title>
                 <h1> Lee D. Gauthier
                 <p> Maybe I should have a clever name for this blog.
 
-    <div class="bar">
-        <div class="menu">
+    <div .bar>
+        <div .menu>
             <ul>
-                <li class="left">
+                <li .left>
                     <a href=@{HomeR}>Home
-                <li class="mid">
+                <li .mid>
                     <a href=@{BlogR}>Blog
-                <li class="mid">
+                <li .mid>
                     <a href=@{ProjR}>Projects
-                <li class="right">
+                <li .right>
                     $maybe _ <- maybeUser
                         <a href=@{AuthR LogoutR}>Logout
                     $nothing
@@ -26,14 +26,14 @@
 
 
     $maybe msg <- mmsg
-        <div class="status">
+        <div .status>
             <div #message>#{msg}
 
-    <div class="page-content">
+    <div .page-content>
         ^{widget}
 
-    <div class="push">
+    <div .push>
 
-<div class="footer banner-grad">
+<div .footer .banner-grad>
     <p>
         #{extraCopyright $ appExtra $ settings master}
