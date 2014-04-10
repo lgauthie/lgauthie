@@ -1,0 +1,6 @@
+.button {
+    input {
+        width: 17em;
+        margin: 1em 5em;
+    }
+}

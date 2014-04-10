@@ -26,7 +26,8 @@
 
 
     $maybe msg <- mmsg
-        <div #message>#{msg}
+        <div class="status">
+            <div #message>#{msg}
 
     <div class="page-content">
         ^{widget}

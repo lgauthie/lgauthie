@@ -2,6 +2,23 @@ html, body {
     height: 100%;
 }
 
+#message {
+    border-style: solid;
+    border-width: 0.1em;
+    border-color: #A5E26A;
+    background-color: #E0FDC8;
+    color: #A5E26A;
+    width: 530px;
+    margin: 1em auto;
+    border-radius: 0.2em;
+    padding: 0.3em;
+    text-align: center;
+    text-shadow: #D9FFB5 0.1em 0.1em;
+}
+.status {
+    margin-left: 3em;
+}
+
 .banner-grad {
     background: -webkit-linear-gradient(#D6D6D6, #DDD);
     background: -o-linear-gradient(#D6D6D6, #DDD);

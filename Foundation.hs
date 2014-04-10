@@ -137,7 +137,7 @@ instance YesodAuth App where
         x <- getBy $ UniqueUser $ credsIdent creds
         case x of
             Just (Entity uid _) -> return $ Just uid
-            Nothing -> do
+            Nothing ->
                 fmap Just $ insert User
                     { userIdent = credsIdent creds
                     , userPassword = Nothing
@@ -148,6 +148,13 @@ instance YesodAuth App where
     authPlugins _ = [authGoogleEmail]
 
     authHttpManager = httpManager
+
+    loginHandler = do
+        tp <- getRouteToParent
+        lift $ defaultLayout $ do
+            setTitle "Login"
+            master <- getYesod
+            $(widgetFile "login")
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.

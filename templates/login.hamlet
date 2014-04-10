@@ -1,0 +1,8 @@
+<div>
+    <h1> Welcome!
+    <p> Right now this login mostly serves as a way for me to sign into this
+        &nbsp;site and make posts. In the future this feature will be used for
+        commenting on posts.
+    <form method="get" action="@{AuthR forwardUrl}" .button .google>
+        <input type="hidden" name="openid_identifier" value="https://www.google.com/accounts/o8/id">
+        <input type="image" src="@{StaticR img_google_signin_png}" value="Login via Google">
