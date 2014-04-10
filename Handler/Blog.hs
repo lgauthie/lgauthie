@@ -15,7 +15,7 @@ getBlogR = do
     (articleWidget, enctype) <- generateFormPost entryForm
     defaultLayout $ do
         setTitle "LeeGauthier.ca: Blog"
-        $(widgetFile "new_entry")
+        $(widgetFile "blog")
 
 postBlogR :: Handler Html
 postBlogR = do
@@ -26,12 +26,12 @@ postBlogR = do
     case result of
          FormSuccess article -> do
             articleId <- runDB $ insert article
-            setMessage $ toHtml $ (articleTitle article) <> " created"
+            setMessage $ toHtml $ articleTitle article <> " created"
             redirect $ ArticleR articleId
          _ -> defaultLayout $ do
                 setTitle "Please correct your entry form"
                 aDomId <- newIdent
-                $(widgetFile "new_entry")
+                $(widgetFile "blog")
 
 getArticleR :: ArticleId -> Handler Html
 getArticleR articleId = do
@@ -39,6 +39,12 @@ getArticleR articleId = do
     defaultLayout $ do
         setTitle $ toHtml $ articleTitle article
         $(widgetFile "article")
+        -- $(fayFile' (ConE 'StaticR) "Article")
+
+deleteArticleR :: ArticleId -> Handler Html
+deleteArticleR articleId = do
+    _ <- runDB $ delete articleId
+    getBlogR
 
 entryForm :: Form Article
 entryForm = renderDivs $ Article
@@ -52,4 +58,4 @@ getNewEntryR = do
         aDomId <- newIdent
         setTitle "What are you doing here!?"
         $(widgetFile "new_article")
-        $(fayFile' (ConE 'StaticR) "Home")
+        -- $(fayFile' (ConE 'StaticR) "Home")

@@ -7,5 +7,5 @@
 
 /                   HomeR       GET
 /blog               BlogR       GET POST
-/blog/#ArticleId    ArticleR    GET
+/blog/#ArticleId    ArticleR    GET DELETE
 /projects           ProjR       GET

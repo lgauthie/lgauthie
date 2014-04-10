@@ -10,7 +10,7 @@ getHomeR = do
         aDomId <- newIdent
         setTitle "LeeGauthier.ca: Welcome!"
         $(widgetFile "homepage")
-        $(fayFile' (ConE 'StaticR) "Home")
+        -- $(fayFile' (ConE 'StaticR) "Home")
 
 getProjR :: Handler Html
 getProjR = do
@@ -18,4 +18,4 @@ getProjR = do
         aDomId <- newIdent
         setTitle "LeeGauthier.ca: Projects"
         $(widgetFile "projects")
-        $(fayFile' (ConE 'StaticR) "Home")
+        -- $(fayFile' (ConE 'StaticR) "Home")
